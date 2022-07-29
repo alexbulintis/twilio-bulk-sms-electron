@@ -18,14 +18,15 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
+    "start": "sirv public -s --no-clear",
     "electron": "wait-on http://localhost:5000 && electron .",
     "electron-dev": "concurrently \"yarn run dev\" \"yarn run electron\"",
     "preelectron-pack": "yarn run build",
     "electron-pack": "electron-builder"
   },
   "dependencies": {
-    "electron-serve": "^1.1.0"
+    "electron-serve": "^1.1.0",
+    "svelte-router-spa": "^6.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",

@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { navigateTo } from 'svelte-router-spa';
 
   let accountSid = '';
   let authToken = '';
@@ -8,15 +9,10 @@
   $: exportable = accountSid || authToken || phoneNumber;
 
   onMount(() => {
-    if (localStorage.getItem('accountSid')) {
-      accountSid = localStorage.getItem('accountSid');
-    }
-    if (localStorage.getItem('authToken')) {
-      authToken = localStorage.getItem('authToken');
-    }
-    if (localStorage.getItem('phoneNumber')) {
-      phoneNumber = localStorage.getItem('phoneNumber');
-    }
+    // load from local storage
+    accountSid = localStorage.getItem('accountSid') || '';
+    authToken = localStorage.getItem('authToken') || '';
+    phoneNumber = localStorage.getItem('phoneNumber') || '';
   });
 
   $: {
@@ -101,6 +97,8 @@
       {/if}
     </div>
   </div>
+  <hr/>
+  <button class="btn" on:click={() => navigateTo('/prepare')}>Next</button>
 </main>
 
 <style>

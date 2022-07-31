@@ -27,6 +27,21 @@ function createWindow() {
         show: false
     });
 
+    mainWindow.webContents.session.webRequest.onBeforeSendHeaders(
+        (details, callback) => {
+          callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
+        },
+      );
+    
+    mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+          responseHeaders: {
+            'Access-Control-Allow-Origin': ['*'],
+            ...details.responseHeaders,
+          },
+        });
+      });
+
     // This block of code is intended for development purpose only.
     // Delete this entire block of code when you are ready to package the application.
     if (isDev()) {

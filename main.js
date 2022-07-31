@@ -24,7 +24,8 @@ function createWindow() {
             // contextIsolation: false
         },
         icon: path.join(__dirname, 'public/favicon.png'),
-        show: false
+        show: false,
+        autoHideMenuBar: true
     });
 
     mainWindow.webContents.session.webRequest.onBeforeSendHeaders(

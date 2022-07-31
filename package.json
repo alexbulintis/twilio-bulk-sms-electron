@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "electron-serve": "^1.1.0",
+    "electron-store": "^8.1.0",
     "svelte-router-spa": "^6.0.3"
   },
   "devDependencies": {

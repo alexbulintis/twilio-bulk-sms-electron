@@ -1,11 +1,11 @@
 {
-  "name": "create-svelte-electron-app",
+  "name": "twilio-bulk-sms-electron",
   "version": "1.1.0",
   "private": true,
   "main": "main.js",
   "build": {
     "icon": "public/favicon.png",
-    "productName": "Svelte and Electron App",
+    "productName": "TBSE",
     "files": [
       "public/**/*",
       "main.js",

@@ -1,8 +1,5 @@
 <script>
-  import { Store } from 'electron-store';
   import { onMount } from 'svelte';
-
-  const store = new Store();
 
   let accountSid = '';
   let authToken = '';
@@ -11,18 +8,63 @@
   $: exportable = accountSid || authToken || phoneNumber;
 
   onMount(() => {
-    if (store.has('accountSid')) {
-      accountSid = store.get('accountSid');
+    if (localStorage.getItem('accountSid')) {
+      accountSid = localStorage.getItem('accountSid');
     }
-    if (store.has('authToken')) {
-      authToken = store.get('authToken');
+    if (localStorage.getItem('authToken')) {
+      authToken = localStorage.getItem('authToken');
     }
-    if (store.has('phoneNumber')) {
-      phoneNumber = store.get('phoneNumber');
+    if (localStorage.getItem('phoneNumber')) {
+      phoneNumber = localStorage.getItem('phoneNumber');
     }
   });
 
-  $: console.log(accountSid, authToken, phoneNumber);
+  $: {
+    localStorage.setItem('accountSid', accountSid);
+    localStorage.setItem('authToken', authToken);
+    localStorage.setItem('phoneNumber', phoneNumber);
+    console.log('Updated local storage');
+  }
+
+  const importConfigFromJSON = (json) => {
+    accountSid = json.accountSid;
+    authToken = json.authToken;
+    phoneNumber = json.phoneNumber;
+  };
+
+  const exportConfigToJSON = () => {
+    return {
+      accountSid,
+      authToken,
+      phoneNumber,
+    };
+  };
+
+  const openJSONFile = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const json = JSON.parse(e.target.result);
+        importConfigFromJSON(json);
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  };
+
+  const saveJSONFile = () => {
+    const json = exportConfigToJSON();
+    const blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'config.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 </script>
 
 <main>
@@ -53,9 +95,9 @@
       <span class="label-text">Config file</span>
       </span>
       {#if (!exportable)}
-        <button class="btn">Import</button>
+        <button class="btn" on:click={() => openJSONFile()}>Import</button>
       {:else}
-        <button class="btn">Export</button>
+        <button class="btn" on:click={() => saveJSONFile()}>Export</button>
       {/if}
     </div>
   </div>

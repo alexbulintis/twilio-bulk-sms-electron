@@ -25,6 +25,7 @@
     "electron-pack": "electron-builder"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
     "svelte-router-spa": "^6.0.3"

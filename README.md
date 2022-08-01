@@ -13,7 +13,7 @@ This simple Electron app was created to help event organisers and marketing depa
 * stores SID, token, phone number in local storage
 * can import/export config to share with team members
 * can import lists of phone numbers
-* build with Svelte & Electron
+* built with Svelte & Electron
 
 **Please only send messages to people who have explicitly agreed to receive messages from you.**
 
@@ -33,3 +33,7 @@ $ yarn electron-pack # or npm run electron-pack
 $ npm i -g electron-builder
 $ electron-builder -wlm
 ```
+
+## Installing
+
+If you just want to install this for your personal use (i.e. not development), check out the [Releases page](https://github.com/alexbulintis/twilio-bulk-sms-electron/releases) and download the right executable for your platform.

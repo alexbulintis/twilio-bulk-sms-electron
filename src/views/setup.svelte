@@ -1,19 +1,11 @@
 <script>
-  import { onMount } from 'svelte';
   import { navigateTo } from 'svelte-router-spa';
 
-  let accountSid = '';
-  let authToken = '';
-  let phoneNumber = '';
+  let accountSid = localStorage.getItem('accountSid') || '';
+  let authToken = localStorage.getItem('authToken') || '';
+  let phoneNumber = localStorage.getItem('phoneNumber') || '';
 
   $: exportable = accountSid || authToken || phoneNumber;
-
-  onMount(() => {
-    // load from local storage
-    accountSid = localStorage.getItem('accountSid') || '';
-    authToken = localStorage.getItem('authToken') || '';
-    phoneNumber = localStorage.getItem('phoneNumber') || '';
-  });
 
   $: {
     localStorage.setItem('accountSid', accountSid);
